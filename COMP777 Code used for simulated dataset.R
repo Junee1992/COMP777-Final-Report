@@ -16,9 +16,10 @@ t <- c(seq(1:800))
 usedata <- cbind(t, data)
 data1 <- usedata[-c(sample(1:800, 600, replace=F)),]
 
-##This data was saved as data.RData.
+##This data was saved as data.RData. More simulation can be made using the codes above, but will
+##produce different results to the final report.
 
-## First load the data
+## First load the data. Please modify according to your working directory.
 load("data.RData")
 colnames(data) <- c("Time", "Measure")
 
