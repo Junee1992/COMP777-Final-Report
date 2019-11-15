@@ -1,3 +1,23 @@
+##The code used to simulate the data
+ornstein_uhlenbeck <- function(T, n, mu, lambda, sigma, X0){
+  dw <- rnorm(n, 0, sqrt(T/n))
+  dt <- T/n
+  x <- c(X0)
+  for (i in 2:(n+1)){
+    x[i] <- x[i-1] + lambda * (mu-x[i-1])*dt + sigma * sqrt(x[i-1]) * dw[i-1]
+  }
+  return(x);
+}
+
+a <- ornstein_uhlenbeck(1,899,25,3,0.5,25)
+plot(a, type = "l")
+data <- a[-c(seq(1:100))]
+t <- c(seq(1:800))
+usedata <- cbind(t, data)
+data1 <- usedata[-c(sample(1:800, 600, replace=F)),]
+
+##This data was saved as data.RData.
+
 ## First load the data
 load("data.RData")
 colnames(data) <- c("Time", "Measure")
