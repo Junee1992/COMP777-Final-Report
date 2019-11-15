@@ -19,19 +19,23 @@ data1 <- usedata[-c(sample(1:800, 600, replace=F)),]
 ##This data was saved as data.RData. More simulation can be made using the codes above, but will
 ##produce different results to the final report.
 
+##
+library(cts)
+
 ## First load the data. Please modify according to your working directory.
-load("data.RData")
-colnames(data) <- c("Time", "Measure")
+
+load("data1.RData")
+colnames(data1) <- c("Time", "Measure")
 
 #Plot of the simulated data
-plot(data, type = "l", main = "Simulated Path of Xt Process")
-rug(data[,1], col="red")
+plot(data1, type = "l", main = "Simulated Path of Xt Process")
+rug(data1[,1], col="red")
 
 #To determine the model with best fit, using AIC and BIC.
 norder <- 13
 data.aic <- data.bic <- rep(NA, norder)
 for(i in 1:norder){
-  fit <- car(data, scale = 0.25, order = i)
+  fit <- car(data1, scale = 0.25, order = i)
   data.aic[i] <- fit$aic
   data.bic[i] <- fit$bic
 }
@@ -39,7 +43,7 @@ res <- data.frame(order = 1:norder, AIC = data.aic, BIC = data.bic)
 print(res)
 
 #Fit the model CAR(4)
-data.car4 <- car(data, scale = 0.25, order = 4)
+data.car4 <- car(data1, scale = 0.25, order = 4)
 summary(data.car4)
 
 #Model Diagnostic
